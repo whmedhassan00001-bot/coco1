@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Coco 💕</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Great+Vibes&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-deep: #0f0215;
+    --bg-mid: #1a0420;
+    --bg-light: #2a0530;
+    --rose: #e8a87c;
+    --rose-light: #f5d5a8;
+    --pink: #ff6ec7;
+    --pink-soft: #ffb3e0;
+    --gold: #d4af7a;
+    --cream: #f5e6d3;
+  }
+
+  html, body {
+    width: 100%;
+    overflow-x: hidden;
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--cream);
+    background: var(--bg-deep);
+  }
+
+  .space-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -5;
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(42, 5, 48, 0.9) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 100%, rgba(15, 2, 21, 1) 0%, transparent 50%),
+      linear-gradient(180deg, #0f0215 0%, #1a0420 50%, #0f0215 100%);
+  }
+
+  .aurora {
+    position: fixed;
+    inset: -10%;
+    z-index: -4;
+    pointer-events: none;
+    filter: blur(80px);
+    opacity: 0.6;
+  }
+  .aurora-1 {
+    background: radial-gradient(circle at 30% 40%, rgba(255, 110, 199, 0.4) 0%, transparent 40%);
+    animation: auroraFloat1 25s ease-in-out infinite;
+  }
+  .aurora-2 {
+    background: radial-gradient(circle at 70% 60%, rgba(168, 85, 247, 0.35) 0%, transparent 40%);
+    animation: auroraFloat2 30s ease-in-out infinite;
+  }
+  .aurora-3 {
+    background: radial-gradient(circle at 50% 20%, rgba(232, 168, 124, 0.2) 0%, transparent 40%);
+    animation: auroraFloat3 20s ease-in-out infinite;
+  }
+  @keyframes auroraFloat1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(80px, -60px) scale(1.2); }
+  }
+  @keyframes auroraFloat2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-80px, 60px) scale(1.15); }
+  }
+  @keyframes auroraFloat3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(40px, 40px) scale(1.3); }
+  }
+
+  .stars-container, .particles-container {
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .particles-container { z-index: -2; }
+  .star {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle linear infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+  .shooting-star {
+    position: absolute;
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    animation: shoot 4s linear;
+    opacity: 0;
+    filter: drop-shadow(0 0 4px rgba(255,255,255,0.6));
+  }
+  @keyframes shoot {
+    0% { transform: translate(0, 0) rotate(-45deg); opacity: 0; }
+    10% { opacity: 1; }
+    100% { transform: translate(-700px, 700px) rotate(-45deg); opacity: 0; }
+  }
+  .particle {
+    position: absolute;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    animation: floatUpParticle linear forwards;
+  }
+  @keyframes floatUpParticle {
+    0% { transform: translateY(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-100vh); opacity: 0; }
+  }
+
+  .music-btn {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(20px);
+    border: 1.5px solid rgba(232, 168, 124, 0.4);
+    color: var(--rose-light);
+    cursor: pointer;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    transition: all 0.3s;
+    box-shadow: 0 8px 32px rgba(255, 110, 199, 0.2);
+    overflow: hidden;
+  }
+  .music-btn:hover {
+    transform: scale(1.1);
+    border-color: var(--rose);
+    box-shadow: 0 8px 40px rgba(232, 168, 124, 0.4);
+  }
+  .music-btn .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+  .music-btn.playing .icon {
+    animation: spin 4s linear infinite;
+  }
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .music-btn::before {
+    content: '';
+    position: absolute;
+    inset: -50%;
+    background: conic-gradient(from 0deg, transparent, rgba(255, 110, 199, 0.5), transparent 40%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    animation: spin 3s linear infinite;
+  }
+  .music-btn.playing::before { opacity: 1; }
+
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 4rem 1rem 3rem;
+    animation: fadeInUp 1.5s ease both;
+  }
+  .hero-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .hero-line::before, .hero-line::after {
+    content: '';
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--rose), transparent);
+  }
+  .hero-line span {
+    color: var(--rose);
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+  .hero-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(4rem, 14vw, 9rem);
+    font-weight: 400;
+    line-height: 0.9;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #f5e6d3 0%, #e8a87c 30%, #ffb3e0 60%, #f5e6d3 100%);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shineText 6s linear infinite;
+    filter: drop-shadow(0 4px 20px rgba(232, 168, 124, 0.3));
+  }
+  @keyframes shineText {
+    0% { background-position: 0% center; }
+    100% { background-position: 300% center; }
+  }
+  .hero-subtitle {
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-weight: 300;
+    color: rgba(245, 230, 211, 0.85);
+    font-style: italic;
+    letter-spacing: 1px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .hero-subtitle .heart {
+    display: inline-block;
+    color: var(--pink);
+    animation: heartbeat 1.5s ease infinite;
+    margin: 0 0.3rem;
+  }
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    20% { transform: scale(1.25); }
+    40% { transform: scale(1); }
+    60% { transform: scale(1.15); }
+    80% { transform: scale(1); }
+  }
+
+  .counter-section {
+    padding: 2rem 0 3rem;
+    text-align: center;
+    animation: fadeInUp 1.5s 0.3s ease both;
+  }
+  .counter-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .counter-label::before, .counter-label::after {
+    content: '';
+    flex: 0 0 40px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(232, 168, 124, 0.5), transparent);
+  }
+  .counter-label span {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.7rem, 2vw, 0.85rem);
+    color: var(--rose-light);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .counter {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: clamp(0.4rem, 2vw, 1rem);
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(232, 168, 124, 0.2);
+    border-radius: 24px;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow:
+      0 20px 60px rgba(255, 110, 199, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  .counter::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(232, 168, 124, 0.6), transparent);
+  }
+  .counter-box {
+    flex: 1;
+    min-width: 60px;
+    padding: 1.2rem 0.4rem;
+    position: relative;
+    transition: transform 0.3s;
+  }
+  .counter-box:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 20%;
+    bottom: 20%;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(232, 168, 124, 0.3), transparent);
+  }
+  .counter-num {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.5rem, 6vw, 3rem);
+    font-weight: 600;
+    line-height: 1;
+    background: linear-gradient(135deg, #f5d5a8, #e8a87c, #ffb3e0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 0.4rem;
+    letter-spacing: 1px;
+    filter: drop-shadow(0 2px 12px rgba(232, 168, 124, 0.4));
+    display: inline-block;
+  }
+  .counter-unit {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.55rem, 1.8vw, 0.7rem);
+    color: rgba(245, 230, 211, 0.6);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+  .counter-note {
+    margin-top: 2rem;
+    font-style: italic;
+    color: rgba(232, 168, 124, 0.7);
+    font-size: clamp(0.9rem, 2vw, 1.05rem);
+    letter-spacing: 0.5px;
+  }
+  .counter-note .date-accent {
+    color: var(--rose-light);
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  .gallery {
+    padding: 3rem 0;
+    animation: fadeInUp 1.5s 0.5s ease both;
+  }
+  .gallery-title {
+    text-align: center;
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 400;
+    color: var(--rose-light);
+    margin-bottom: 3rem;
+    filter: drop-shadow(0 2px 12px rgba(232, 168, 124, 0.3));
+  }
+  .photos-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem 1.5rem;
+  }
+  .photo-card {
+    width: clamp(220px, 30vw, 300px);
+    position: relative;
+    cursor: pointer;
+    transform: rotate(var(--rot, 0deg));
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: photoFloat 6s ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+  @keyframes photoFloat {
+    0%, 100% { transform: rotate(var(--rot, 0deg)) translateY(0); }
+    50% { transform: rotate(calc(var(--rot, 0deg) + 1deg)) translateY(-12px); }
+  }
+  .photo-frame {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(232, 168, 124, 0.3);
+    box-shadow:
+      0 20px 50px rgba(0, 0, 0, 0.5),
+      0 8px 20px rgba(255, 110, 199, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.3s;
+  }
+  .photo-frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(232, 168, 124, 0.15), transparent 40%, transparent 60%, rgba(255, 110, 199, 0.15));
+    pointer-events: none;
+    z-index: 1;
+  }
+  .photo-frame img {
+    display: block;
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #2a0530, #0f0215);
+  }
+  .photo-card:hover {
+    transform: rotate(0deg) scale(1.05) translateY(-10px);
+    animation-play-state: paused;
+  }
+  .photo-card:hover .photo-frame {
+    border-color: var(--rose);
+    box-shadow:
+      0 30px 70px rgba(0, 0, 0, 0.6),
+      0 15px 40px rgba(232, 168, 124, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+  .photo-caption {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-style: italic;
+    color: rgba(245, 230, 211, 0.95);
+    font-size: 0.95rem;
+    pointer-events: none;
+    z-index: 2;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+    padding: 0 1rem;
+  }
+
+  .message-section {
+    padding: 3rem 0;
+    animation: fadeInUp 1.5s 0.7s ease both;
+  }
+  .message-card {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: clamp(2rem, 5vw, 3.5rem);
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(232, 168, 124, 0.25);
+    border-radius: 24px;
+    position: relative;
+    text-align: center;
+    box-shadow:
+      0 25px 70px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+  }
+  .message-card::before {
+    content: '❦';
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--rose);
+    font-size: 1.5rem;
+    opacity: 0.5;
+  }
+  .message-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--rose), transparent);
+  }
+  .message-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--rose-light);
+    margin: 1.5rem 0 1.5rem;
+    font-weight: 400;
+  }
+  .message-text {
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    line-height: 1.9;
+    color: rgba(245, 230, 211, 0.85);
+    font-weight: 300;
+    font-style: italic;
+    min-height: 100px;
+  }
+  .message-text::after {
+    content: '|';
+    color: var(--rose);
+    animation: blink 1s step-end infinite;
+    margin-left: 2px;
+    font-style: normal;
+  }
+  .message-text.done::after { display: none; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  footer {
+    text-align: center;
+    padding: 3rem 1rem 2rem;
+    color: rgba(232, 168, 124, 0.55);
+    font-style: italic;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+  }
+  footer .heart-footer {
+    color: var(--pink);
+    display: inline-block;
+    animation: heartbeat 1.5s ease infinite;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    main { padding: 2rem 1rem 3rem; }
+    .hero { padding: 3rem 0.5rem 2rem; }
+    .photo-frame img { height: 240px; }
+    .photo-card { width: min(85vw, 280px); }
+    .counter { padding: 0.8rem; border-radius: 20px; }
+    .counter-box { padding: 1rem 0.3rem; min-width: 55px; }
+  }
+
+  @media (max-width: 480px) {
+    .music-btn { width: 52px; height: 52px; top: 16px; right: 16px; font-size: 1.1rem; }
+    .hero-title { font-size: clamp(3.5rem, 20vw, 5rem); }
+    .counter { gap: 0.2rem; padding: 0.6rem; }
+    .counter-box { padding: 0.8rem 0.15rem; min-width: 0; }
+    .counter-num { font-size: clamp(1.15rem, 6vw, 1.7rem); }
+    .counter-unit { font-size: 0.5rem; letter-spacing: 1px; }
+    .counter-label::before, .counter-label::after { flex: 0 0 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="space-bg"></div>
+<div class="aurora aurora-1"></div>
+<div class="aurora aurora-2"></div>
+<div class="aurora aurora-3"></div>
+<div class="stars-container" id="stars"></div>
+<div class="particles-container" id="particles"></div>
+
+<button class="music-btn" id="musicBtn" title="Play / Pause music">
+  <span class="icon"><i class="fas fa-music"></i></span>
+</button>
+<audio id="bgMusic" loop preload="auto">
+  <source src="photo/Musicfofa.mpeg" type="audio/mpeg">
+</audio>
+
+<main>
+
+  <section class="hero">
+    <div class="hero-line"><span>for my beloved</span></div>
+    <h1 class="hero-title">My Coco</h1>
+    <p class="hero-subtitle">
+      Every second with you is a gift <span class="heart">❤</span> that I treasure forever
+    </p>
+  </section>
+
+  <section class="counter-section">
+    <div class="counter-label"><span>Time Together</span></div>
+    <div class="counter">
+      <div class="counter-box">
+        <div class="counter-num" id="days">0</div>
+        <div class="counter-unit">Days</div>
+      </div>
+      <div class="counter-box">
+        <div class="counter-num" id="hours">0</div>
+        <div class="counter-unit">Hours</div>
+      </div>
+      <div class="counter-box">
+        <div class="counter-num" id="minutes">0</div>
+        <div class="counter-unit">Minutes</div>
+      </div>
+      <div class="counter-box">
+        <div class="counter-num" id="seconds">0</div>
+        <div class="counter-unit">Seconds</div>
+      </div>
+    </div>
+    <p class="counter-note">Since <span class="date-accent">October 4</span> · 7:16 AM</p>
+  </section>
+
+  <section class="gallery">
+    <h2 class="gallery-title">Moments I Love</h2>
+    <div class="photos-container">
+      <div class="photo-card" style="--rot: -5deg; --delay: 0s;">
+        <div class="photo-frame">
+          <img src="photo/fofa1.jpeg" alt="Coco 1" onerror="this.style.background='linear-gradient(135deg,#2a0530,#0f0215)'; this.alt='Add fofa1.jpeg';">
+          <p class="photo-caption">Your smile ❤</p>
+        </div>
+      </div>
+      <div class="photo-card" style="--rot: 4deg; --delay: 0.8s;">
+        <div class="photo-frame">
+          <img src="photo/fofa2.jpeg" alt="Coco 2" onerror="this.style.background='linear-gradient(135deg,#2a0530,#0f0215)'; this.alt='Add fofa2.jpeg';">
+          <p class="photo-caption">My favorite ✨</p>
+        </div>
+      </div>
+      <div class="photo-card" style="--rot: -3deg; --delay: 1.6s;">
+        <div class="photo-frame">
+          <img src="photo/fofa3.jpeg" alt="Coco 3" onerror="this.style.background='linear-gradient(135deg,#2a0530,#0f0215)'; this.alt='Add fofa3.jpeg';">
+          <p class="photo-caption">Forever 💕</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="message-section">
+    <div class="message-card">
+      <h3 class="message-title">Dear Coco</h3>
+      <p class="message-text" id="loveText"></p>
+    </div>
+  </section>
+
+  <footer>
+    Made with <span class="heart-footer">❤</span> just for you
+  </footer>
+
+</main>
+
+<script>
+  // ============================================
+  // 1) COUNTER — From October 4, 7:16 AM
+  // ============================================
+  const now = new Date();
+  const thisYear = now.getFullYear();
+  const anniversaryThisYear = new Date(thisYear, 9, 4, 7, 16, 0);
+  // 9 = October (0-indexed)
+  const START_DATE = (now < anniversaryThisYear
+    ? new Date(thisYear - 1, 9, 4, 7, 16, 0)
+    : anniversaryThisYear
+  ).getTime();
+
+  const daysEl = document.getElementById('days');
+  const hoursEl = document.getElementById('hours');
+  const minutesEl = document.getElementById('minutes');
+  const secondsEl = document.getElementById('seconds');
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function updateCounter() {
+    const diff = Math.max(0, Date.now() - START_DATE);
+    daysEl.textContent = Math.floor(diff / 86400000);
+    hoursEl.textContent = pad(Math.floor((diff % 86400000) / 3600000));
+    minutesEl.textContent = pad(Math.floor((diff % 3600000) / 60000));
+    secondsEl.textContent = pad(Math.floor((diff % 60000) / 1000));
+  }
+  updateCounter();
+  setInterval(updateCounter, 1000);
+
+  // ============================================
+  // 2) STARS
+  // ============================================
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 150; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    const size = Math.random() * 2 + 1;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+    star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+    star.style.animationDelay = Math.random() * 5 + 's';
+    starsContainer.appendChild(star);
+  }
+
+  function createShootingStar() {
+    const s = document.createElement('div');
+    s.className = 'shooting-star';
+    s.style.top = Math.random() * 50 + '%';
+    s.style.left = (Math.random() * 60 + 40) + '%';
+    starsContainer.appendChild(s);
+    setTimeout(() => s.remove(), 4000);
+  }
+  setInterval(createShootingStar, 8000);
+
+  // ============================================
+  // 3) FLOATING PARTICLES
+  // ============================================
+  const particlesContainer = document.getElementById('particles');
+  const colors = ['255,110,199', '232,168,124', '255,179,224', '168,85,247'];
+
+  function createParticle() {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.bottom = '-10px';
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    p.style.background = `rgba(${color}, 0.6)`;
+    p.style.boxShadow = `0 0 10px 2px rgba(${color}, 0.5)`;
+    const size = Math.random() * 4 + 2;
+    p.style.width = size + 'px';
+    p.style.height = size + 'px';
+    const duration = Math.random() * 8 + 10;
+    p.style.animationDuration = duration + 's';
+    particlesContainer.appendChild(p);
+    setTimeout(() => p.remove(), duration * 1000);
+  }
+  setInterval(createParticle, 500);
+  for (let i = 0; i < 10; i++) setTimeout(createParticle, i * 200);
+
+  // ============================================
+  // 4) TYPEWRITER MESSAGE
+  // ============================================
+  const loveTextEl = document.getElementById('loveText');
+  const message = "You are the calm in my chaos, the light in my dark. Every day with you feels like a beautiful dream I never want to wake from. I love you more than words could ever say, my beautiful Coco.";
+
+  let idx = 0;
+  function typeMessage() {
+    if (idx < message.length) {
+      loveTextEl.textContent += message.charAt(idx);
+      idx++;
+      setTimeout(typeMessage, 50);
+    } else {
+      loveTextEl.classList.add('done');
+    }
+  }
+  setTimeout(typeMessage, 2000);
+
+  // ============================================
+  // 5) MUSIC PLAYER
+  // ============================================
+  const musicBtn = document.getElementById('musicBtn');
+  const bgMusic = document.getElementById('bgMusic');
+  bgMusic.volume = 0.5;
+  let isPlaying = false;
+
+  musicBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (isPlaying) {
+      bgMusic.pause();
+      musicBtn.classList.remove('playing');
+      isPlaying = false;
+    } else {
+      bgMusic.play().then(() => {
+        musicBtn.classList.add('playing');
+        isPlaying = true;
+      }).catch(() => {});
+    }
+  });
+
+  function tryAutoPlay() {
+    bgMusic.play().then(() => {
+      musicBtn.classList.add('playing');
+      isPlaying = true;
+      document.removeEventListener('click', tryAutoPlay);
+      document.removeEventListener('touchstart', tryAutoPlay);
+    }).catch(() => {});
+  }
+  document.addEventListener('click', tryAutoPlay);
+  document.addEventListener('touchstart', tryAutoPlay);
+
+  // ============================================
+  // 6) PHOTO LIGHTBOX
+  // ============================================
+  document.querySelectorAll('.photo-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const img = card.querySelector('img');
+      if (!img) return;
+
+      const overlay = document.createElement('div');
+      overlay.style.cssText = `
+        position: fixed; inset: 0;
+        background: rgba(15, 2, 21, 0.92);
+        backdrop-filter: blur(20px);
+        display: flex; align-items: center; justify-content: center;
+        z-index: 9999; cursor: zoom-out;
+        opacity: 0; transition: opacity 0.4s;
+        padding: 2rem;
+      `;
+
+      const bigImg = document.createElement('img');
+      bigImg.src = img.src;
+      bigImg.style.cssText = `
+        max-width: 90vw; max-height: 85vh;
+        border-radius: 16px;
+        border: 2px solid rgba(232, 168, 124, 0.5);
+        box-shadow:
+          0 40px 100px rgba(0, 0, 0, 0.8),
+          0 0 60px rgba(255, 110, 199, 0.3);
+        transform: scale(0.85);
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      `;
+
+      overlay.appendChild(bigImg);
+      document.body.appendChild(overlay);
+
+      requestAnimationFrame(() => {
+        overlay.style.opacity = '1';
+        bigImg.style.transform = 'scale(1)';
+      });
+
+      overlay.addEventListener('click', () => {
+        overlay.style.opacity = '0';
+        bigImg.style.transform = 'scale(0.85)';
+        setTimeout(() => overlay.remove(), 400);
+      });
+    });
+  });
+
+  // ============================================
+  // 7) SECONDS PULSE
+  // ============================================
+  setInterval(() => {
+    secondsEl.animate(
+      [
+        { transform: 'scale(1)' },
+        { transform: 'scale(1.12)' },
+        { transform: 'scale(1)' }
+      ],
+      { duration: 400, easing: 'ease-out' }
+    );
+  }, 1000);
+</script>
+</body>
+</html>
